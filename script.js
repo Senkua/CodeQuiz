@@ -52,6 +52,9 @@ const scoreboard = [
   { initials: "EF", score: 50 },
 ];
 
+const scoreboardBody = document.getElementById("scoreboard-body");
+
+
 const startQuizBtn = document.querySelector('#startqz-btn');
 const questionHeader = document.querySelector('#question');
 const answerButtons = document.querySelectorAll('#answer-buttons .btn');
@@ -59,6 +62,20 @@ const answerButtons = document.querySelectorAll('#answer-buttons .btn');
 var questionIndex = 0;
 let timerInterval;
 let timeRemaining = 60; // 60 seconds for example
+
+function addScore(initials, score) {
+  const newRow = document.createElement("tr");
+  const initialsCell = document.createElement("td");
+  const scoreCell = document.createElement("td");
+
+  initialsCell.textContent = initials;
+  scoreCell.textContent = score;
+
+  newRow.appendChild(initialsCell);
+  newRow.appendChild(scoreCell);
+
+  scoreboardBody.appendChild(newRow);
+}
 
 function endChallenge() {
   questionHeader.textContent = "You have completed the Challenge, this is your score";
@@ -125,3 +142,11 @@ function quizButtonPressed() {
 
 
 startQuizBtn.addEventListener('click', quizButtonPressed);
+
+// Add the initial scores to the table
+scoreboard.forEach(score => {
+  addScore(score.initials, score.score);
+});
+
+// Example usage: add a new score to the table
+addScore("GH", 90);
