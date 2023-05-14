@@ -46,22 +46,21 @@ const questions = [
     }
 ];
 
-const scoreboard = [
-  { initials: "AB", score: 100 },
-  { initials: "CD", score: 75 },
-  { initials: "EF", score: 50 },
-];
+const scoreboard = [];
 
+const scoreboardSection = document.querySelector(".score-board");
 const scoreboardBody = document.getElementById("scoreboard-body");
-
 
 const startQuizBtn = document.querySelector('#startqz-btn');
 const questionHeader = document.querySelector('#question');
+const answerSection = document.querySelector('#answer-buttons');
 const answerButtons = document.querySelectorAll('#answer-buttons .btn');
 
 var questionIndex = 0;
 let timerInterval;
-let timeRemaining = 60; // 60 seconds for example
+let timeRemaining = 50; // 60 seconds for example
+scoreboardSection.style.display = 'none';
+answerSection.style.display = 'none';
 
 function addScore(initials, score) {
   const newRow = document.createElement("tr");
@@ -78,21 +77,24 @@ function addScore(initials, score) {
 }
 
 function endChallenge() {
-  questionHeader.textContent = "You have completed the Challenge, this is your score";
-  answerButtons.display = "none";
+  questionHeader.style.display = 'none';
+  answerSection.style.display = 'none';
+  scoreboardSection.style.display = '';
   let playerInitials = prompt("Your time is up! Enter your initials to save your score:"); // prompt for initials
-  scoreboard.push({ initials: playerInitials, score: timeRemaining }); 
+  addScore(playerInitials, timeRemaining); 
 
   questionIndex = 0; //reset index to 0?
 }
 
 function updateTimer() {
   timeRemaining--;
-  document.getElementById("time").textContent = timeRemaining;
   if (timeRemaining <= 0) {
+    timeRemaining = 0;
     clearInterval(timerInterval); // stop the timer
     endChallenge();
   }
+
+  document.getElementById("time").textContent = timeRemaining;
 }
 
 function handleAnswerClick() {
@@ -108,7 +110,6 @@ function handleAnswerClick() {
 }
 
 function resetAnswerButtons(activeQuestion) {
-  
   // Update the text of the answer buttons with the answer options of the selected question
   activeQuestion.answers.forEach((answer, index) => {
     var answerBtn = answerButtons[index];
@@ -124,6 +125,7 @@ function resetAnswerButtons(activeQuestion) {
 function quizButtonPressed() {
   if (questionIndex == 0) {
     timerInterval = setInterval(updateTimer, 1000); // start the timer
+    answerSection.style.display = '';
   }
   if (questionIndex >= questions.length) {
     console.log("Index is too large!");
@@ -140,13 +142,4 @@ function quizButtonPressed() {
   questionIndex += 1;
 }
 
-
 startQuizBtn.addEventListener('click', quizButtonPressed);
-
-// Add the initial scores to the table
-scoreboard.forEach(score => {
-  addScore(score.initials, score.score);
-});
-
-// Example usage: add a new score to the table
-addScore("GH", 90);
