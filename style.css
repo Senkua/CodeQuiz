@@ -37,3 +37,19 @@ body{
     cursor: pointer;
     display: block;
 }
+
+.btn {
+  display: block;
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #800080;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.btn:hover {
+  background-color: #4b004d;
+}
