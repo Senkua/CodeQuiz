@@ -9,12 +9,24 @@
   <body>
     <!--Opening Page-->
     <div class="app">
-        <h1>Coding Quiz Challenge</h1>
-        <div class="quiz"> 
-          <h2 id="question">
-            Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!
-          </h2>
-        </div>
+      <h1>Coding Quiz Challenge</h1>
+      <div class="score-board">
+        <table>
+          <thead>
+            <tr>
+              <th>Initials</th>
+              <th>Score</th>
+            </tr>
+          </thead>
+          <tbody id="scoreboard-body">
+          </tbody>
+        </table>
+      </div>
+      <div class="quiz"> 
+        <h2 id="question">
+          Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!
+        </h2>
+      </div>
     
       <!--Answer buttons-->
       <div id="answer-buttons">
