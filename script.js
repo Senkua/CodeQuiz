@@ -50,6 +50,7 @@ const scoreboard = [];
 
 const scoreboardSection = document.querySelector(".score-board");
 const scoreboardBody = document.getElementById("scoreboard-body");
+const clearButton = document.getElementById("clear-button");
 
 const startQuizBtn = document.querySelector('#startqz-btn');
 const questionHeader = document.querySelector('#question');
@@ -58,9 +59,15 @@ const answerButtons = document.querySelectorAll('#answer-buttons .btn');
 
 var questionIndex = 0;
 let timerInterval;
-let timeRemaining = 50; // 60 seconds for example
-scoreboardSection.style.display = 'none';
-answerSection.style.display = 'none';
+let timeRemaining = 120;
+
+function initializeQuiz() {
+  questionIndex = 0;
+  timeRemaining = 120; 
+  scoreboardSection.style.display = 'none';
+  answerSection.style.display = 'none';
+  questionHeader.style.display = '';
+}
 
 function addScore(initials, score) {
   const newRow = document.createElement("tr");
@@ -77,13 +84,17 @@ function addScore(initials, score) {
 }
 
 function endChallenge() {
+  // show all the things
   questionHeader.style.display = 'none';
   answerSection.style.display = 'none';
   scoreboardSection.style.display = '';
+  startQuizBtn.style.display = '';
+  
   let playerInitials = prompt("Your time is up! Enter your initials to save your score:"); // prompt for initials
   addScore(playerInitials, timeRemaining); 
 
-  questionIndex = 0; //reset index to 0?
+  // reset timer
+  clearInterval(timerInterval);
 }
 
 function updateTimer() {
@@ -106,7 +117,7 @@ function handleAnswerClick() {
     timeRemaining -= 10;
   }
   this.removeEventListener('click', handleAnswerClick);
-  quizButtonPressed();
+  nextQuizQuestion();
 }
 
 function resetAnswerButtons(activeQuestion) {
@@ -123,12 +134,18 @@ function resetAnswerButtons(activeQuestion) {
 }
 
 function quizButtonPressed() {
-  if (questionIndex == 0) {
-    timerInterval = setInterval(updateTimer, 1000); // start the timer
-    answerSection.style.display = '';
-  }
+  initializeQuiz();
+  timerInterval = setInterval(updateTimer, 1000); // start the timer
+  answerSection.style.display = '';
+  this.style.display = 'none';
+
+  nextQuizQuestion();
+  
+}
+
+function nextQuizQuestion(){
   if (questionIndex >= questions.length) {
-    console.log("Index is too large!");
+    endChallenge();
     return;
   }
 
@@ -142,4 +159,11 @@ function quizButtonPressed() {
   questionIndex += 1;
 }
 
+initializeQuiz();
+
 startQuizBtn.addEventListener('click', quizButtonPressed);
+clearButton.addEventListener('click', () => {
+  while (scoreboardBody.firstChild) {
+    scoreboardBody.removeChild(scoreboardBody.firstChild);
+  }
+});
