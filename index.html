@@ -1,38 +1,33 @@
 <!DOCTYPE html>
 <html lang="en-us">
-
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>CodeQuiz</title>
-<link rel="stylesheet" href="style.css">
-</head>
-
-<!--Opening Page-->
-
-<div class="app">
-
-    <h1>Coding Quiz Challenge</h1>
-    <div class="quiz">
-<h2 id="question">Try to answer the following code-related questions within the time limit. 
-    keep in mind that incorrect answers will penalize your score/time by ten seconds!
-</h2>
-
-<!--Answer buttons-->
-
-<button class="btn">Answer 1</button>
-<button class="btn">Answer 2</button>
-<button class="btn">Answer 3</button>
-<button class="btn">Answer 4</button>
-
-    </div>
-
-<!--Start Quiz Button-->
-<button id="startqz-btn">Start Quiz</button>
-</div>
-<body>
-
-
-    <script src="script.js"></script>
-</body>
+  <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CodeQuiz</title>
+  <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <!--Opening Page-->
+    <div class="app">
+        <h1>Coding Quiz Challenge</h1>
+        <div class="quiz"> 
+          <h2 id="question">
+            Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!
+          </h2>
+        </div>
+    
+      <!--Answer buttons-->
+      <div id="answer-buttons">
+        <button class="btn">Answer 1</button>  
+        <button class="btn">Answer 2</button>
+        <button class="btn">Answer 3</button>
+        <button class="btn">Answer 4</button>
+      </div>
+    
+      <!--Start Quiz Button-->
+      <button id="startqz-btn">Start Quiz</button>
+      <div id="timer">Time Remaining: <span id="time">60</span> seconds</div>
+    </div>    
+  </body>
+  <script src="script.js"></script>
 </html>
